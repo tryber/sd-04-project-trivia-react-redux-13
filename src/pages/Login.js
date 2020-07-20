@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { actionUserAdd, asyncActionToken } from '../actions';
 import logo from '../trivia.png';
-import { getElt } from '../helpers';
+import getElt from '../helpers';
 
 
 // Componente Login q renderiza os elementos da página inicial
