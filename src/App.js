@@ -8,7 +8,7 @@ import Ranking from './pages/Ranking';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
-export default function App() {
+function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -24,3 +24,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

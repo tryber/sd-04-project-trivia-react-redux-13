@@ -1,22 +1,22 @@
-import { DATA_REQUEST, DATA_RECEIVED, DATA_ERROR } from '../actions';
+import { TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_ERROR } from '../actions';
 
 const initialState = {
   loading: false,
-  data: [],
-  error: [],
+  token: {},
+  error: {},
 };
 
-const reducerData = (state = initialState, action) => {
+const reducerToken = (state = initialState, action) => {
   switch (action.type) {
-    case DATA_REQUEST:
+    case TOKEN_REQUEST:
       return { ...state, loading: true };
-    case DATA_RECEIVED:
+    case TOKEN_RECEIVED:
       return {
         ...state,
         loading: false,
-        data: action.data,
+        token: action.token,
       };
-    case DATA_ERROR:
+    case TOKEN_ERROR:
       return {
         ...state,
         error: action.error,
@@ -26,4 +26,4 @@ const reducerData = (state = initialState, action) => {
   }
 };
 
-export default reducerData;
+export default reducerToken;
