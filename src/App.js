@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import logo from './trivia.png';
 import './App.css';
 import Login from './pages/Login';
 import Game from './pages/Game';
@@ -9,11 +8,10 @@ import Ranking from './pages/Ranking';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
-export default function App() {
+function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/game" component={Game} />
@@ -26,3 +24,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
