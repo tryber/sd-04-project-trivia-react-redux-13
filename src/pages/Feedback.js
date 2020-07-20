@@ -41,7 +41,7 @@ class Feedback extends Component {
     }
     return (
       <div>
-        <PlayerStatus player={player} points={points} showSettings={'true'}/>
+        <PlayerStatus player={player} points={points} showSettings={'true'} />
         <div data-testid="feedback-text" className="feedback-text">
           {this.state.feedbackMsg}
         </div>
