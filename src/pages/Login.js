@@ -20,7 +20,7 @@ class Login extends Component {
     };
   }
 
-
+  // Test comentario
   // Função que despacha a action contendo os dados do usuário e
   // armazena o estado de logado no local storage
 
