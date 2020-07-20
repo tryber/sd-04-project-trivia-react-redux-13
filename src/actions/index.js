@@ -35,13 +35,13 @@ export const asyncActionToken = (url) =>
       .then((response) => response.json())
       .then((token) => {
         localStorage.setItem('token', JSON.stringify(token));
-        return dispatch(actionTokenReceived(token))
+        return dispatch(actionTokenReceived(token));
       })
       .catch((error) => dispatch(actionTokenError(error)));
   };
 
 
-// actions para armazenamento de dados de perguntas recebidas via API 
+// actions para armazenamento de dados de perguntas recebidas via API
 
 export const DATA_REQUEST = 'DATA_REQUEST';
 export const DATA_RECEIVED = 'DATA_RECEIVED';

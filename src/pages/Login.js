@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { actionUserAdd, asyncActionToken } from '../actions';
 import logo from '../trivia.png';
 import { getElt } from '../helpers';
@@ -26,7 +27,7 @@ class Login extends Component {
   storeDataUser() {
     const { email, name } = this.state;
     const { user, token } = this.props;
-    localStorage.setItem('loggedin', JSON.stringify(true)); 
+    localStorage.setItem('loggedin', JSON.stringify(true));
     this.setState({ loggedin: JSON.parse(localStorage.getItem('loggedin')) });
     token('https://opentdb.com/api_token.php?command=request');
     return user({
@@ -46,9 +47,9 @@ class Login extends Component {
       btn.disabled = false;
       btn.addEventListener('click', this.storeDataUser);
       return true;
-    };
+    }
     btn.disabled = true;
-    return true;  
+    return true;
   }
 
   render() {
@@ -75,7 +76,7 @@ class Login extends Component {
       </div>)
     );
   }
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
   user: (oUser) => dispatch(actionUserAdd(oUser)),
@@ -83,3 +84,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  user: PropTypes.func.isRequired,
+  token: PropTypes.func.isRequired,
+};

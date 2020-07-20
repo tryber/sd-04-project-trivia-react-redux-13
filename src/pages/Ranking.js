@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Ranking = () => {
-  return (
+const Ranking = () =>
+  (
     <div>
       <h1>Game</h1>
     </div>
   );
-};
 
 export default Ranking;

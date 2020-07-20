@@ -5,10 +5,9 @@ const initialState = {
 };
 
 const reducerUsers = (state = initialState, action) => {
-  console.log(state)
   switch (action.type) {
     case USER_ADD:
-      return { ...state, users: [ ...state.users, action.user ] };
+      return { ...state, users: [...state.users, action.user] };
     default:
       return state;
   }
