@@ -1,22 +1,22 @@
 import { ADD_PLAYER } from '../actions/addPlayerToRank';
 
 const INITIAL_STATE = {
-  players: [],
-}
+  ranking: [],
+};
 
 const reducerRank = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_PLAYER:
       return {
         ...state,
-        players: [
-          ...players,
+        ranking: [
+          ...state.ranking,
           {
             avatar: action.avatar,
             name: action.name,
             score: action.score,
-          }
-        ]
+          },
+        ],
       };
     default:
       return state;
