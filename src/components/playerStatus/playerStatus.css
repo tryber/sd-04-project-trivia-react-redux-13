@@ -5,16 +5,16 @@
 	justify-content: space-around;
 }
 
-.player_container, .points_container {
+.player_container , .points_container {
 	align-items: center;
 	display: flex;
 }
 
-.player, .points {
+.player , .points {
 	margin: 0 30px;
 }
 
 .link {
-	border-radius: 5px;
 	border: solid 1px black;
+	border-radius: 5px;
 }

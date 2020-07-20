@@ -4,29 +4,29 @@ import './pages_css/Feedback.css';
 import PlayerStatus from '../components/playerStatus/playerStatus';
 
 class Feedback extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       feedbackMsg: 'test',
       points: 666,
-      player: "SASUKE",
+      player: 'SASUKE',
       rightQuest: 1,
       rendRedirect: false,
       nextScreen: '',
     };
   }
 
+  componentDidMount() {
+    this.comparaAcertos();
+  }
+
   comparaAcertos() {
     const { rightQuest } = this.state;
     if (rightQuest < 3) {
-      this.setState({ feedbackMsg: "Podia ser melhor..." });
+      this.setState({ feedbackMsg: 'Podia ser melhor...' });
     } else if (rightQuest >= 3) {
-      this.setState({ feedbackMsg: "Mandou bem!" });
+      this.setState({ feedbackMsg: 'Mandou bem!' });
     }
-  }
-
-  componentDidMount() {
-    this.comparaAcertos();
   }
 
   handleClick(tela) {
@@ -37,11 +37,11 @@ class Feedback extends Component {
     const { player, points, rightQuest, rendRedirect } = this.state;
 
     if (rendRedirect) {
-      return <Redirect Push to={this.state.nextScreen}/>
+      return <Redirect Push to={this.state.nextScreen} />;
     }
     return (
       <div>
-        <PlayerStatus player={player} points={points} showSettings={true}/>
+        <PlayerStatus player={player} points={points} showSettings={'true'}/>
         <div data-testid="feedback-text" className="feedback-text">
           {this.state.feedbackMsg}
         </div>
@@ -52,11 +52,11 @@ class Feedback extends Component {
           <br />
           {`Um total de ${points} pontos`}
         </div>
-        <button onClick={() => this.handleClick("/ranking")}>
+        <button onClick={() => this.handleClick('/ranking')}>
           VER RANKING
         </button>
         <br />
-        <button onClick={() => this.handleClick("/game")}>
+        <button onClick={() => this.handleClick('/game')}>
           JOGAR NOVAMENTE
         </button>
       </div>
