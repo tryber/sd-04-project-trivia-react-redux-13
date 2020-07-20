@@ -36,7 +36,6 @@ class Login extends Component {
     });
   }
 
-
   // Função que verifica se os inputs estão preenchidos
 
   checkInputFill(e) {
