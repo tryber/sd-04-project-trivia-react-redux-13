@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import logo from '../trivia.png';
+import { Redirect } from 'react-router-dom';
 import { actionAddUsers } from '../actions';
 
 const getDataUser = (user) => {
@@ -21,6 +22,7 @@ const Login = ({ user }) => (
     <label htmlFor="user-name">Nome do Jogador: </label>
     <input type="text" id="user-name" data-testid="input-player-name" /><br />
     <button data-testid="btn-play" onClick={() => getDataUser(user)}>JOGAR!</button>
+    <Redirect Push to="/feedback" />;
   </div>
 );
 
