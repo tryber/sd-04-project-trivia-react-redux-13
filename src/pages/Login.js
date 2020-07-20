@@ -19,8 +19,8 @@ class Login extends Component {
       loggedin: JSON.parse(localStorage.getItem('loggedin')),
     };
   }
-  
-  
+
+
   // Função que despacha a action contendo os dados do usuário e
   // armazena o estado de logado no local storage
 
