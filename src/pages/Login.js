@@ -20,7 +20,6 @@ class Login extends Component {
     };
   }
 
-
   // Função que despacha a action contendo os dados do usuário e
   // armazena o estado de logado no local storage
 
