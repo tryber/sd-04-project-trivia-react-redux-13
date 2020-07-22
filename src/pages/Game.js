@@ -12,11 +12,15 @@ class Game extends Component {
   }
 
   render() {
-    const { loading, question } = this.props;
+    const { loading, question, user } = this.props;
     return (loading || question === undefined ? <p>Loading...</p> :
       (
         <div>
           <h1>Game</h1>
+          <header>
+            <img data-testid="header-profile-picture" alt="Perfil do gravatar" />
+            <p data-testid="header-player-name">{user.name}</p>
+          </header>
           <QuestionCard category={question.category} />
           {/* <AnswerCard /> */}
         </div>
@@ -36,6 +40,7 @@ class Game extends Component {
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
   question: state.data.data[0],
+  user: state.users.users[0],
 });
 
 const mapDispatchToProps = (dispatch) => ({
