@@ -28,6 +28,7 @@ class Login extends Component {
     const { user, token } = this.props;
     localStorage.setItem('loggedin', JSON.stringify(true));
     this.setState({ loggedin: JSON.parse(localStorage.getItem('loggedin')) });
+    // 'https://opentdb.com/api_token.php?command=request'
     token('https://opentdb.com/api_token.php?command=request');
     return user({
       email,

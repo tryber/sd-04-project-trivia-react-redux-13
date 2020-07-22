@@ -60,3 +60,12 @@ export const actionDataError = (error) => ({
   type: DATA_ERROR,
   error,
 });
+
+export const asyncActionData = (url) =>
+  (dispatch) => {
+    dispatch(actionDataRequest());
+    return fetch(url)
+      .then((response) => response.json())
+      .then((data) => dispatch(actionDataReceived(data.results)))
+      .catch((error) => dispatch(actionDataError(error)));
+  };
