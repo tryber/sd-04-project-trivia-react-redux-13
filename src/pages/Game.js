@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { asyncActionData } from '../actions';
 import QuestionCard from '../components/QuestionCard/QuestionCard';
 
-const Game = ({ getData }) => {
-  setTimeout(() => {
-    const token = JSON.parse(localStorage.getItem('token')).token;
-    return getData(`https://opentdb.com/api.php?amount=5&token=${token}`);
-  }, 3000);
+class Game extends Component {
+  componentDidMount() {
+    setTimeout(() => {
+      const token = JSON.parse(localStorage.getItem('token')).token;
+      return this.props.getData(`https://opentdb.com/api.php?amount=5&token=${token}`);
+    }, 3000);
+  }
 
-  return (
-    <div>
-      <h1>Game</h1>
-      <QuestionCard />
-      {/* <AnswerCard /> */}
-    </div>
-  );
+  render() {
+    const { loading, question } = this.props;
+    return (loading || question === undefined ? <p>Loading...</p> :
+      (
+        <div>
+          <h1>Game</h1>
+          <QuestionCard category={question.category} />
+          {/* <AnswerCard /> */}
+        </div>
+      )
+    );
+  }
 }
 
 /* const AnswerCard = ({answer, isCorrect}) => {
@@ -26,8 +33,13 @@ const Game = ({ getData }) => {
   )
 }; */
 
+const mapStateToProps = (state) => ({
+  loading: state.data.loading,
+  question: state.data.data[0],
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getData: (url) => dispatch(asyncActionData(url)),
 });
 
-export default connect(null, mapDispatchToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
