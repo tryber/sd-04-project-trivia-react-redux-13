@@ -41,7 +41,7 @@ class PlayerStatus extends React.Component {
 
 PlayerStatus.propTypes = {
   showSettings: PropTypes.string.isRequired,
-  points: PropTypes.string.isRequired,
+  points: PropTypes.number.isRequired,
   player: PropTypes.string.isRequired,
 };
 

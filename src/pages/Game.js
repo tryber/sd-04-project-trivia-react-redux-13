@@ -18,7 +18,7 @@ class Game extends Component {
       (
         <div>
           <h1>Game</h1>
-          <PlayerStatus />
+          <PlayerStatus player={'player'} points={666} showSettings={'false'} />
           <QuestionCard category={question.category} />
           {/* <AnswerCard /> */}
         </div>
