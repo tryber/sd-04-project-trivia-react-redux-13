@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { asyncActionData } from '../actions';
 import QuestionCard from '../components/QuestionCard/QuestionCard';
+import PlayerStatus from '../components/playerStatus/playerStatus';
 
 class Game extends Component {
   componentDidMount() {
@@ -17,10 +18,7 @@ class Game extends Component {
       (
         <div>
           <h1>Game</h1>
-          <header>
-            <img data-testid="header-profile-picture" alt="Perfil do gravatar" />
-            <p data-testid="header-player-name">{user.name}</p>
-          </header>
+          <PlayerStatus />
           <QuestionCard category={question.category} />
           {/* <AnswerCard /> */}
         </div>
