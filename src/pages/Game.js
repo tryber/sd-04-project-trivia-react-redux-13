@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { asyncActionData } from '../actions';
 import QuestionCard from '../components/QuestionCard/QuestionCard';
 import PlayerStatus from '../components/playerStatus/playerStatus';
+import Timer from '../components/Timer';
+// import AnswerCard from '../components/AnswerCard/AnswerCard';
 
 class Game extends Component {
   componentDidMount() {
@@ -13,14 +15,18 @@ class Game extends Component {
   }
 
   render() {
-    const { loading, question, user } = this.props;
+    const { loading, question, user} = this.props;
     return (loading || question === undefined ? <p>Loading...</p> :
       (
         <div>
           <h1>Game</h1>
-          <PlayerStatus player={'player'} points={666} showSettings={'false'} />
-          <QuestionCard category={question.category} />
-          {/* <AnswerCard /> */}
+          <PlayerStatus player={'user'} points={666} showSettings={'false'} />
+          <QuestionCard
+            category={question.category}
+            quesText={question.question}
+          />
+        {/*<AnswerCard answer='Teste' isCorrect/>*/}
+          <Timer />
         </div>
       )
     );
