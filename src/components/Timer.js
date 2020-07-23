@@ -1,22 +1,5 @@
 import React, { Component } from 'react';
 
-// const Timer = () => {
-//   let n = 0;
-
-//   const setInt = () => {
-//     if(n >= 30) {
-//       clearInterval(setInt);
-//     }
-//     return n++;
-//   };
-
-//   return (
-//     <div>
-//       <p>{setInterval(setInt, 1000)}</p>
-//     </div>
-//   );
-// };
-
 class Timer extends Component {
   constructor(props) {
     super(props);
