@@ -2,55 +2,58 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { actionUserAdd, asyncActionToken } from '../actions';
+import { asyncActionTokenData } from '../actions';
 import logo from '../trivia.png';
-import getElt from '../helpers';
+import { getElt, getLS, setLS } from '../helpers';
 
 
-// Componente Login q renderiza os elementos da página inicial
+// Componente Login q renderiza os elementos da página inicial.
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.storeDataUser = this.storeDataUser.bind(this);
     this.state = {
-      gravatarEmail: '',
+      email: '',
       name: '',
-      loggedin: JSON.parse(localStorage.getItem('loggedin')),
-      doClear: true,
+      loggedin: getLS('loggedin'),
     };
   }
 
   componentDidMount() {
-    localStorage.clear();
-    this.setState({ doClear: false });
-    this.setState({ loggedin: false });
+    const player = {
+        name: '',
+        assertions: 0,
+        score: 0,
+        gravatarEmail: '',
+    }
+    const ranking = [{
+      name: '',
+      score: 10,
+      picture: '',
+    }];
+    setLS('player', player);
+    setLS('ranking', ranking);
   }
 
-  // Função que despacha a action contendo os dados do usuário e
-  // armazena o estado de logado no local storage
+
+  // Função que armazena o estado de logado e o token obtido via API no local storage.
+  // Também armazena o token na store.
 
   storeDataUser() {
-    const { gravatarEmail, name } = this.state;
-    const { user, token } = this.props;
-    localStorage.setItem('loggedin', JSON.stringify(true));
-    this.setState({ loggedin: JSON.parse(localStorage.getItem('loggedin')) });
-    token('https://opentdb.com/api_token.php?command=request');
-    const player = {
-      name,
-      assertions: 0,
-      score: 0,
-      gravatarEmail,
-    }
-    localStorage.setItem('state', JSON.stringify(true));
-    // return user({
-    //   email,
-    //   name,
-    // });
+    const { email, name } = this.state;
+    const { tokenData } = this.props;
+    const player = getLS('player');
+    setLS('player', 
+      { ...player, name: name, gravatarEmail: email },
+    );
+    setLS('loggedin', true);
+    this.setState({ loggedin: getLS('loggedin') });
+    return tokenData('https://opentdb.com/api_token.php?command=request');
   }
 
 
-  // Função que verifica se os inputs estão preenchidos
+  // Função que verifica se os inputs estão preenchidos.
 
   checkInputFill(e) {
     if (e.target.id === 'input-email') this.setState({ email: e.target.value });
@@ -66,9 +69,9 @@ class Login extends Component {
   }
 
   render() {
-    const { email, name, loggedin, doClear } = this.state;
-    return (loggedin && !doClear ? <Redirect push to="/game" /> :
-      (<div>
+    const { email, name, loggedin } = this.state;
+    return (loggedin ? <Redirect push to="/game" /> :
+      <div>
         <Link to="/settings"><button data-testid="btn-settings">Configurações</button></Link><br />
         <img src={logo} className="App-logo" alt="logo" /><br />
         <label htmlFor="input-email">Email do Gravatar: </label>
@@ -86,19 +89,17 @@ class Login extends Component {
         >
           JOGAR!
         </button>
-      </div>)
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  user: (oUser) => dispatch(actionUserAdd(oUser)),
-  token: (url) => dispatch(asyncActionToken(url)),
+  tokenData: (url) => dispatch(asyncActionTokenData(url)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
-  user: PropTypes.func.isRequired,
-  token: PropTypes.func.isRequired,
+  tokenData: PropTypes.func.isRequired,
 };
