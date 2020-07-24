@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './QuestionCard.css';
 
 class QuestionCard extends Component {
@@ -6,7 +7,7 @@ class QuestionCard extends Component {
 		const { category, quesText } = this.props;
 
 		//console.log('first', question);
-		//const questionText = decodeURI(quesText);
+		//const questionText =  JSON.parse(decodeURI(quesText));
 		//console.log('second', questionText);
 		// console.log(user);
 		return (
@@ -17,5 +18,10 @@ class QuestionCard extends Component {
 		);
 	}
 }
+
+QuestionCard.propTypes = {
+	category: PropTypes.string.isRequired,
+	quesText: PropTypes.string.isRequired,
+};
 
 export default QuestionCard;

@@ -31,7 +31,7 @@ class PlayerStatus extends React.Component {
           <div data-testid="header-profile-picture" >
             <i className="fa fa-user-circle fa-2x" />
           </div>
-          <h3 data-testid="header-player-name" className="player">Jogador: {player}</h3>
+          <h3 data-testid="header-player-name" className="player">Jogador: {player.name}</h3>
         </div>
         {this.renderPoints()}
       </header>
@@ -42,7 +42,7 @@ class PlayerStatus extends React.Component {
 PlayerStatus.propTypes = {
   showSettings: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
-  player: PropTypes.string.isRequired,
+  //player: PropTypes.string.isRequired,
 };
 
 export default PlayerStatus;

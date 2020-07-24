@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import { asyncActionData } from '../actions';
 import QuestionCard from '../components/QuestionCard/QuestionCard';
 import PlayerStatus from '../components/playerStatus/playerStatus';
-import Timer from '../components/Timer';
+// import Timer from '../components/Timer';
 // import AnswerCard from '../components/AnswerCard/AnswerCard';
 
 class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      answered: false,
+    };
+  }
+
   componentDidMount() {
     setTimeout(() => {
       const token = JSON.parse(localStorage.getItem('token')).token;
@@ -15,18 +22,20 @@ class Game extends Component {
   }
 
   render() {
-    const { loading, question, user} = this.props;
+    const { answered } = this.state;
+    const { loading, question, user } = this.props;
     return (loading || question === undefined ? <p>Loading...</p> :
       (
         <div>
-          <h1>Game</h1>
-          <PlayerStatus player={'user'} points={666} showSettings={'false'} />
+          {JSON.stringify(localStorage.setItem('userName', user.name))}
+          {/* {console.log(JSON.parse(localStorage.getItem('userName')))} */}
+          <PlayerStatus player={JSON.parse(localStorage.getItem('userName'))} points={666} showSettings={'false'} />
           <QuestionCard
             category={question.category}
             quesText={question.question}
           />
-        {/*<AnswerCard answer='Teste' isCorrect/>*/}
-          <Timer />
+          {/*<AnswerCard answer='Teste' isCorrect/>*/}
+          {/* <Timer answered={answered} /> */}
         </div>
       )
     );

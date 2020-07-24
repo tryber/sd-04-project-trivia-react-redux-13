@@ -14,26 +14,39 @@ class Login extends Component {
     super(props);
     this.storeDataUser = this.storeDataUser.bind(this);
     this.state = {
-      email: '',
+      gravatarEmail: '',
       name: '',
       loggedin: JSON.parse(localStorage.getItem('loggedin')),
+      doClear: true,
     };
+  }
+
+  componentDidMount() {
+    localStorage.clear();
+    this.setState({ doClear: false });
+    this.setState({ loggedin: false });
   }
 
   // Função que despacha a action contendo os dados do usuário e
   // armazena o estado de logado no local storage
 
   storeDataUser() {
-    const { email, name } = this.state;
+    const { gravatarEmail, name } = this.state;
     const { user, token } = this.props;
     localStorage.setItem('loggedin', JSON.stringify(true));
     this.setState({ loggedin: JSON.parse(localStorage.getItem('loggedin')) });
-    // 'https://opentdb.com/api_token.php?command=request'
     token('https://opentdb.com/api_token.php?command=request');
-    return user({
-      email,
+    const player = {
       name,
-    });
+      assertions: 0,
+      score: 0,
+      gravatarEmail,
+    }
+    localStorage.setItem('state', JSON.stringify(true));
+    // return user({
+    //   email,
+    //   name,
+    // });
   }
 
 
@@ -53,8 +66,8 @@ class Login extends Component {
   }
 
   render() {
-    const { email, name, loggedin } = this.state;
-    return (loggedin ? <Redirect push to="/game" /> :
+    const { email, name, loggedin, doClear } = this.state;
+    return (loggedin && !doClear ? <Redirect push to="/game" /> :
       (<div>
         <Link to="/settings"><button data-testid="btn-settings">Configurações</button></Link><br />
         <img src={logo} className="App-logo" alt="logo" /><br />
