@@ -16,7 +16,7 @@ class Login extends Component {
     this.state = {
       email: '',
       name: '',
-      loggedin: getLS('loggedin'),
+      loggedin: false,
     };
   }
 
@@ -32,6 +32,7 @@ class Login extends Component {
       score: 10,
       picture: '',
     }];
+    localStorage.clear();
     setLS('player', player);
     setLS('ranking', ranking);
   }
@@ -44,7 +45,7 @@ class Login extends Component {
     const { email, name } = this.state;
     const { tokenData } = this.props;
     const player = getLS('player');
-    setLS('player', 
+    setLS('player',
       { ...player, name: name, gravatarEmail: email },
     );
     setLS('loggedin', true);
