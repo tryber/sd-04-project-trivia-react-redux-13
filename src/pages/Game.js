@@ -1,41 +1,84 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actionTokenAdd, actionDataAdd } from '../actions';
-import { getLS } from '../helpers';
+import { getLS, setLS } from '../helpers';
+import './pages_css/Game.css'
 import QuestionCard from '../components/QuestionCard/QuestionCard';
 import PlayerStatus from '../components/playerStatus/playerStatus';
-import Timer from '../components/Timer';
-// import AnswerCard from '../components/AnswerCard/AnswerCard';
+// import Timer from '../components/Timer';
+import AnswerCard from '../components/AnswerCard/AnswerCard';
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      answered: false,
+      // answered: false,
+      ctrQuest: 0,
+      sum: 0,
     };
+    // this.isAnswered = this.isAnswered.bind(this);
+    this.sumPoints = this.sumPoints.bind(this);
+    this.showNextButton = this.showNextButton.bind(this);
   }
 
   componentDidMount() {
     const { addToken, addData } = this.props;
+    const player = getLS('player');
     if (getLS('data') !== null) {
       addToken(getLS('token'));
       addData(getLS('data'));
     }
+    setLS('player',
+    { ...player, score: 0 },
+    );
+  }
+
+  sumPoints() { //  10 + ( timer * dificuldade )
+    const { questions } = this.props;
+    const { ctrQuest, sum } = this.state;
+    const player = getLS('player');
+    const difs = [
+      {hard: 3},
+      {medium: 2},
+      {easy: 1},
+    ];
+    const difficulty = questions[ctrQuest].difficulty;
+    let multiply = {};
+    let time = 10;
+    let auxSum = 0;
+    multiply = difs.find((dif) => Object.keys(dif)[0] === difficulty);
+    auxSum = 10 + (time * Object.values(multiply));
+    auxSum = auxSum + player.score;
+    setLS('player',
+      { ...player, score: auxSum },
+    );
+    this.setState({ sum: auxSum });
+  }
+
+  showNextButton() {
+    const { ctrQuest } = this.state;
+    if(ctrQuest >= 5) {
+      return ( <Link to='/feedback'>Próximo</Link> )
+    }
   }
 
   render() {
-    const { answered } = this.state;
+    const { ctrQuest, sum } = this.state;
     const { loading, questions } = this.props;
     return (loading || questions[0] === undefined ? <h1>Game loading...</h1> :
       <div>
         <h1>Game</h1>
-        <PlayerStatus player={getLS('player')} points={666} showSettings={'false'} />
+        <PlayerStatus player={getLS('player')} score={sum} showSettings={'false'} />
         <QuestionCard
-          category={questions[0].category}
-          quesText={questions[0].question}
+          category={questions[ctrQuest].category}
+          quesText={questions[ctrQuest].question}
         />
-        {/* <AnswerCard answer='Teste' isCorrect/> */}
-        <Timer answered={answered} />
+        <AnswerCard isCorrect={'true'} answer={questions[ctrQuest]} />
+        <button onClick={() => this.sumPoints()}>Testa Soma</button>
+        <div>
+          {this.showNextButton()}
+        </div>
       </div>
     )
   }

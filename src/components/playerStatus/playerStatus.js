@@ -5,11 +5,11 @@ import './playerStatus.css';
 
 class PlayerStatus extends React.Component {
   renderPoints() {
-    const { showSettings, points } = this.props;
+    const { showSettings, score } = this.props;
     if (showSettings === 'true') {
       return (
         <div className="points_container">
-          <h3 data-testid="header-score" className="points">Pontos: {points}</h3>
+          <h3 data-testid="header-score" className="points">Pontos: {score}</h3>
           <Link className="link" to="/settings">
             <i className="fa fa-cog fa-2x" />
           </Link>
@@ -18,7 +18,7 @@ class PlayerStatus extends React.Component {
     }
     return (
       <div className="points_container">
-        <h3 data-testid="header-score" className="points">Pontos: {points}</h3>
+        <h3 data-testid="header-score" className="points">Pontos: {score}</h3>
       </div>
     );
   }
@@ -41,8 +41,7 @@ class PlayerStatus extends React.Component {
 
 PlayerStatus.propTypes = {
   showSettings: PropTypes.string.isRequired,
-  points: PropTypes.number.isRequired,
-  //player: PropTypes.string.isRequired,
+  player: PropTypes.object.isRequired,
 };
 
 export default PlayerStatus;

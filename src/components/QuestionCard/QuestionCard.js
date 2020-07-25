@@ -6,10 +6,14 @@ class QuestionCard extends Component {
 	render() {
 		const { category, quesText } = this.props;
 
-		//console.log('first', question);
-		//const questionText =  JSON.parse(decodeURI(quesText));
-		//console.log('second', questionText);
-		// console.log(user);
+    //  ----------------------------------
+    //  Tentativa de conversão do texto
+    //  ----------------------------------
+		//  console.log('first', question);
+		//  const questionText =  JSON.parse(decodeURI(quesText));
+		//  console.log('second', questionText);
+    //  console.log(user);
+    
 		return (
 			<div className="quest_container">
 				<div data-testid="question-category">{category}</div>
