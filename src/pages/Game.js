@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { actionTokenAdd, actionDataAdd } from '../actions';
 import { getLS, setLS } from '../helpers';
 import './pages_css/Game.css'
@@ -14,9 +14,11 @@ class Game extends Component {
     this.state = {
       ctrQuest: 0,
       sum: 0,
+      nextButton: false,
     };
     this.sumPoints = this.sumPoints.bind(this);
     this.showNextButton = this.showNextButton.bind(this);
+    this.showNextButton2 = this.showNextButton2.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +29,7 @@ class Game extends Component {
       addData(getLS('data'));
     }
     setLS('player',
-    { ...player, score: 0 },
+      { ...player, score: 0 },
     );
   }
 
@@ -36,9 +38,9 @@ class Game extends Component {
     const { ctrQuest, sum } = this.state;
     const player = getLS('player');
     const difs = [
-      {hard: 3},
-      {medium: 2},
-      {easy: 1},
+      { hard: 3 },
+      { medium: 2 },
+      { easy: 1 },
     ];
     const difficulty = questions[ctrQuest].difficulty;
     let multiply = {};
@@ -55,15 +57,23 @@ class Game extends Component {
 
   showNextButton() {
     const { ctrQuest } = this.state;
-    if(ctrQuest >= 5) {
-      return ( <Link to='/feedback'>Próximo</Link> )
+    if (ctrQuest >= 5) {
+      return (<Link to='/feedback'>Próximo</Link>)
     }
   }
 
+
+  // Função criada para exibir o botão de 'Próxima', já passa nos testes,
+  // talvez queiram mesclar com o que já codaram
+
+  showNextButton2(value) {
+    return this.setState({ nextButton: value });
+  }
+
   render() {
-    const { ctrQuest, sum } = this.state;
+    const { ctrQuest, sum, nextButton } = this.state;
     const { loading, questions } = this.props;
-    return (loading || questions[0] === undefined ? <h1>Game loading...</h1> :
+    return (loading || (questions[0] === undefined) ? <h1>Game loading...</h1> :
       <div>
         <h1>Game</h1>
         <PlayerStatus player={getLS('player')} score={sum} showSettings={'false'} />
@@ -71,12 +81,18 @@ class Game extends Component {
           category={questions[ctrQuest].category}
           quesText={questions[ctrQuest].question}
         />
-        <AnswerCard isCorrect={'true'} answer={questions[ctrQuest]} />
+        <AnswerCard answer={questions[ctrQuest]} showNextButton2={this.showNextButton2} />
         <button onClick={() => this.sumPoints()}>Testa Soma</button>
         <div>
           {this.showNextButton()}
         </div>
-      </div>
+        <div>
+          {nextButton &&
+            <button data-testid="btn-next">
+              Próxima
+            </button>}
+        </div>
+      </div >
     )
   }
 }

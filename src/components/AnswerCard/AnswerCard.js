@@ -83,6 +83,7 @@ class AnswerCard extends Component {
   genColor(e) {
     const parent = [...e.target.parentNode.children];
     this.setState({ answered: true });
+    this.props.showNextButton2(true);
     setSS('timer', this.state.timer);
     return parent.filter((child) => child.tagName === 'BUTTON').forEach((but) => (
       but.id === 'correct' ?
@@ -101,8 +102,7 @@ class AnswerCard extends Component {
   render() {
     const { timer } = this.state;
     const { answer } = this.props;
-    return (answer.type === 'multiple'
-      ?
+    return (answer.type === 'multiple' ?
       <div>
         <Multiple answer={answer} genColor={this.genColor} />
         <p>{timer}</p>
