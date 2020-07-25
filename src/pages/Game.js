@@ -6,18 +6,15 @@ import { getLS, setLS } from '../helpers';
 import './pages_css/Game.css'
 import QuestionCard from '../components/QuestionCard/QuestionCard';
 import PlayerStatus from '../components/playerStatus/playerStatus';
-// import Timer from '../components/Timer';
 import AnswerCard from '../components/AnswerCard/AnswerCard';
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // answered: false,
       ctrQuest: 0,
       sum: 0,
     };
-    // this.isAnswered = this.isAnswered.bind(this);
     this.sumPoints = this.sumPoints.bind(this);
     this.showNextButton = this.showNextButton.bind(this);
   }

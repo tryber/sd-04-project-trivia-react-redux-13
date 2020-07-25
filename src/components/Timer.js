@@ -9,10 +9,11 @@ class Timer extends Component {
   }
 
   componentDidMount() {
-    const { answered } = this.props;
+    const { answered, timeout } = this.props;
     const setInt = setInterval(() => {
       if (this.state.number === 0 || answered === true) {
         clearInterval(setInt)
+        timeout();
         return true;
       }
       return this.setState((prevState) => ({
