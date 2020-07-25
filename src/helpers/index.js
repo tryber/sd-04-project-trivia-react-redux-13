@@ -1,6 +1,6 @@
 const d = () => {}; // Função sem uso, só para eliminar a escrita de vários 'exports'
 
-const getElt = (id) => document.querySelector(id);
+const getElt = (query) => document.querySelector(query);
 
 //  LS === Local Storage
 const getLS = (key) => JSON.parse(localStorage.getItem(key));

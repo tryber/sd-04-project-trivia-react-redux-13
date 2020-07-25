@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './AnswerCard.css';
-import Timer from '../Timer';
+import { getElt, setSS } from '../../helpers';
 
-const Multiple = ({ answer, answered, genColor, timeout }) =>
+
+// Componente de alternativas multiplas
+
+const Multiple = ({ answer, genColor }) =>
   <div className="multiple">
     <button
       data-testid="correct-answer" id="correct" onClick={genColor}
@@ -24,10 +27,12 @@ const Multiple = ({ answer, answered, genColor, timeout }) =>
     >
       {answer.incorrect_answers[2]}
     </button>
-    <Timer answered={answered} timeout={timeout} />
   </div>;
 
-const Boolean = ({ answer, answered, genColor, timeout }) =>
+
+// Componente de alternativas booleanas
+
+const Boolean = ({ answer, genColor }) =>
   <div className="boolean">
     <button
       data-testid="correct-answer" id="correct" onClick={genColor}
@@ -39,25 +44,46 @@ const Boolean = ({ answer, answered, genColor, timeout }) =>
     >
       {answer.incorrect_answers[0]}
     </button>
-    <Timer answered={answered} timeout={timeout} />
   </div>;
+
+
+// Componente principal
 
 class AnswerCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       answered: false,
+      timer: 30,
     }
     this.genColor = this.genColor.bind(this);
     this.timeout = this.timeout.bind(this);
   }
 
-  isAnswered(value) {
-    return (value ? this.setState({ answered: false }) : this.setState({ answered: true }));
+
+  // Inicia timer assim q componente renderiza
+
+  componentDidMount() {
+    const setInt = setInterval(() => {
+      if (this.state.answered) {
+        clearInterval(setInt);
+        return true;
+      }
+      if (this.state.timer === 0) {
+        clearInterval(setInt)
+        this.timeout();
+        return true;
+      }
+      return this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }))
+    }, 1000);
   }
 
   genColor(e) {
     const parent = [...e.target.parentNode.children];
+    this.setState({ answered: true });
+    setSS('timer', this.state.timer);
     return parent.filter((child) => child.tagName === 'BUTTON').forEach((but) => (
       but.id === 'correct' ?
         but.classList.add('correct-answer')
@@ -67,25 +93,25 @@ class AnswerCard extends Component {
   }
 
   timeout() {
-    const eltMulti = [ ...document.querySelector('.multiple').children ];
+    const eltMulti = [...getElt('.multiple').children];
     eltMulti.filter((child) => child.tagName === 'BUTTON').forEach((but) => but.disabled = true);
     return true;
   }
 
   render() {
-    const { answered } = this.state;
+    const { timer } = this.state;
     const { answer } = this.props;
     return (answer.type === 'multiple'
       ?
-      <Multiple
-        answer={answer} answered={answered} genColor={this.genColor}
-        timeout={this.timeout}
-      />
+      <div>
+        <Multiple answer={answer} genColor={this.genColor} />
+        <p>{timer}</p>
+      </div>
       :
-      <Boolean
-        answer={answer} answered={answered} genColor={this.genColor}
-        timeout={this.timeout}
-      />
+      <div>
+        <Boolean answer={answer} genColor={this.genColor} />
+        <p>{timer}</p>
+      </div>
     );
   }
 }
