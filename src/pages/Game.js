@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { actionTokenAdd, actionDataAdd } from '../actions';
 import { getLS, setLS } from '../helpers';
 import './pages_css/Game.css'
@@ -16,6 +16,7 @@ class Game extends Component {
       sum: 0,
       ready2Sum: true,
       nextButton: false,
+      nextScreen: false,
     };
     this.sumPoints = this.sumPoints.bind(this);
     this.showNextButton = this.showNextButton.bind(this);
@@ -78,24 +79,25 @@ class Game extends Component {
   passQuest(limit) {
     const { ctrQuest } = this.state;
     if((ctrQuest + 1) <= limit) {
-      this.setState({ ctrQuest: ctrQuest + 1, ready2Sum: true, nextButton: false,});
+      this.setState({ ctrQuest: ctrQuest + 1, ready2Sum: true, nextButton: false });
     } else {
-      return(
-        <Link to="/feedback">
-          <button>Resultado</button>
-        </Link>
-      );
+      console.log("yes");
+      this.setState({ nextButton: false, nextScreen: true });
     }
   }
 
   renderPoints() {
-    const { nextButton } = this.state;
+    const { nextButton, nextScreen } = this.state;
 
     if (nextButton) {
       return (
         <button data-testid="btn-next" onClick={() => this.passQuest(4)}>
           Próxima
         </button>
+      );
+    } else if (nextScreen) {
+      return (
+        <Redirect Redirect push to="/feedback" />
       );
     }
   }
