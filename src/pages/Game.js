@@ -14,11 +14,13 @@ class Game extends Component {
     this.state = {
       ctrQuest: 0,
       sum: 0,
+      ready2Sum: true,
       nextButton: false,
     };
     this.sumPoints = this.sumPoints.bind(this);
     this.showNextButton = this.showNextButton.bind(this);
     this.showNextButton2 = this.showNextButton2.bind(this);
+    this.renderPoints = this.renderPoints.bind(this);
   }
 
   componentDidMount() {
@@ -33,9 +35,9 @@ class Game extends Component {
     );
   }
 
-  sumPoints() { //  10 + ( timer * dificuldade )
+  sumPoints(isCorrect) { //  10 + ( timer * dificuldade )
     const { questions } = this.props;
-    const { ctrQuest, sum } = this.state;
+    const { ctrQuest } = this.state;
     const player = getLS('player');
     const difs = [
       { hard: 3 },
@@ -46,13 +48,15 @@ class Game extends Component {
     let multiply = {};
     let time = 10;
     let auxSum = 0;
-    multiply = difs.find((dif) => Object.keys(dif)[0] === difficulty);
-    auxSum = 10 + (time * Object.values(multiply));
+    if (isCorrect) {
+      multiply = difs.find((dif) => Object.keys(dif)[0] === difficulty);
+      auxSum = 10 + (time * Object.values(multiply));
+    }
     auxSum = auxSum + player.score;
     setLS('player',
       { ...player, score: auxSum },
     );
-    this.setState({ sum: auxSum });
+    this.setState({ sum: auxSum, ready2Sum: false });
   }
 
   showNextButton() {
@@ -62,12 +66,25 @@ class Game extends Component {
     }
   }
 
-
   // Função criada para exibir o botão de 'Próxima', já passa nos testes,
   // talvez queiram mesclar com o que já codaram
 
-  showNextButton2(value) {
+  showNextButton2(value, isCorrect) {
+    const { ready2Sum } = this.state;
+    if (ready2Sum) setTimeout(this.sumPoints(isCorrect), 200);
     return this.setState({ nextButton: value });
+  }
+
+  renderPoints() {
+    const { nextButton } = this.state;
+
+    if (nextButton) {
+      return (
+        <button data-testid="btn-next">
+          Próxima
+        </button>
+      );
+    }
   }
 
   render() {
@@ -82,16 +99,8 @@ class Game extends Component {
           quesText={questions[ctrQuest].question}
         />
         <AnswerCard answer={questions[ctrQuest]} showNextButton2={this.showNextButton2} />
-        <button onClick={() => this.sumPoints()}>Testa Soma</button>
-        <div>
-          {this.showNextButton()}
-        </div>
-        <div>
-          {nextButton &&
-            <button data-testid="btn-next">
-              Próxima
-            </button>}
-        </div>
+        {/*<button onClick={() => this.sumPoints()}>Testa Soma</button>*/}
+        {this.renderPoints()}
       </div >
     )
   }

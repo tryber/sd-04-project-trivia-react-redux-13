@@ -6,7 +6,6 @@ import { asyncActionTokenData } from '../actions';
 import logo from '../trivia.png';
 import { getElt, getLS, setLS } from '../helpers';
 
-
 // Componente Login q renderiza os elementos da página inicial.
 
 class Login extends Component {
