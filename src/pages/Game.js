@@ -81,23 +81,27 @@ class Game extends Component {
     if((ctrQuest + 1) <= limit) {
       this.setState({ ctrQuest: ctrQuest + 1, ready2Sum: true, nextButton: false });
     } else {
-      console.log("yes");
-      this.setState({ nextButton: false, nextScreen: true });
+      this.setState({ nextScreen: true });
     }
   }
 
   renderPoints() {
     const { nextButton, nextScreen } = this.state;
 
-    if (nextButton) {
+    if (nextButton && !nextScreen) {
       return (
         <button data-testid="btn-next" onClick={() => this.passQuest(4)}>
           Próxima
         </button>
       );
-    } else if (nextScreen) {
+    } else if (nextScreen && nextButton) {
       return (
-        <Redirect Redirect push to="/feedback" />
+        <div>
+          <button data-testid="btn-next">
+            Próxima
+          </button>
+          <Redirect Redirect push to="/feedback" />
+        </div>
       );
     }
   }

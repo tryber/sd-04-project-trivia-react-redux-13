@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './pages_css/Feedback.css';
 import PlayerStatus from '../components/playerStatus/playerStatus';
+import { getLS } from '../helpers';
 
 class Feedback extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      feedbackMsg: 'test',
-      points: 666,
-      player: 'SASUKE',
+      feedbackMsg: '',
+      pt: 0,
       rightQuest: 1,
       rendRedirect: false,
       nextScreen: '',
@@ -17,6 +17,8 @@ class Feedback extends Component {
   }
 
   componentDidMount() {
+    const player = getLS('player');
+    this.setState({ pt: player.score, rightQuest: player.assertions });
     this.comparaAcertos();
   }
 
@@ -34,14 +36,17 @@ class Feedback extends Component {
   }
 
   render() {
-    const { player, points, rightQuest, rendRedirect } = this.state;
-
+    const { pt, rightQuest, rendRedirect } = this.state;
     if (rendRedirect) {
       return <Redirect Push to={this.state.nextScreen} />;
     }
     return (
       <div>
-        <PlayerStatus player={player} points={points} showSettings={'true'} />
+        <PlayerStatus
+          player={getLS('player')}
+          score={pt}
+          showSettings={'true'} 
+        />
         <div data-testid="feedback-text" className="feedback-text">
           {this.state.feedbackMsg}
         </div>
@@ -50,13 +55,13 @@ class Feedback extends Component {
             {`Você acertou ${rightQuest} questões!`}
           </span>
           <br />
-          {`Um total de ${points} pontos`}
+          {`Um total de ${pt} pontos`}
         </div>
-        <button onClick={() => this.handleClick('/ranking')}>
+        <button data-testid="btn-ranking" onClick={() => this.handleClick('/ranking')}>
           VER RANKING
         </button>
         <br />
-        <button onClick={() => this.handleClick('/game')}>
+        <button data-testid="btn-play-again" onClick={() => this.handleClick('/game')}>
           JOGAR NOVAMENTE
         </button>
       </div>
