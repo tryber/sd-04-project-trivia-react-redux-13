@@ -39,7 +39,7 @@ const Boolean = ({ answer, genColor, callBack }) =>
     <button
       data-testid="correct-answer"
       id="correct"
-      onClick={(event) => { genColor(event); callBack(false) }}
+      onClick={(event) => { genColor(event); callBack(true) }}
     >
       {answer.correct_answer}
     </button><br />

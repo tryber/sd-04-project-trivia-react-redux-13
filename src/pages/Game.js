@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { actionTokenAdd, actionDataAdd } from '../actions';
 import { getLS, setLS } from '../helpers';
 import './pages_css/Game.css'
@@ -75,12 +75,25 @@ class Game extends Component {
     return this.setState({ nextButton: value });
   }
 
+  passQuest(limit) {
+    const { ctrQuest } = this.state;
+    if((ctrQuest + 1) <= limit) {
+      this.setState({ ctrQuest: ctrQuest + 1, ready2Sum: true, nextButton: false,});
+    } else {
+      return(
+        <Link to="/feedback">
+          <button>Resultado</button>
+        </Link>
+      );
+    }
+  }
+
   renderPoints() {
     const { nextButton } = this.state;
 
     if (nextButton) {
       return (
-        <button data-testid="btn-next">
+        <button data-testid="btn-next" onClick={() => this.passQuest(4)}>
           Próxima
         </button>
       );
@@ -88,7 +101,7 @@ class Game extends Component {
   }
 
   render() {
-    const { ctrQuest, sum, nextButton } = this.state;
+    const { ctrQuest, sum } = this.state;
     const { loading, questions } = this.props;
     return (loading || (questions[0] === undefined) ? <h1>Game loading...</h1> :
       <div>
@@ -99,7 +112,6 @@ class Game extends Component {
           quesText={questions[ctrQuest].question}
         />
         <AnswerCard answer={questions[ctrQuest]} showNextButton2={this.showNextButton2} />
-        {/*<button onClick={() => this.sumPoints()}>Testa Soma</button>*/}
         {this.renderPoints()}
       </div >
     )
