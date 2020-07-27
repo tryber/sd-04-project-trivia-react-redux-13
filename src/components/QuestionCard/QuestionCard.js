@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import './QuestionCard.css';
 
 class QuestionCard extends Component {
-	render() {
-		const { category, quesText } = this.props;
+  render() {
+    const { category, quesText } = this.props;
 
-		return (
-			<div className="quest_container">
-				<div data-testid="question-category">{category}</div>
-				<div data-testid="question-text">{quesText}</div>
-			</div>
-		);
-	}
+    return (
+      <div className="quest_container">
+        <div data-testid="question-category">{category}</div>
+        <div data-testid="question-text">{quesText}</div>
+      </div>
+    );
+  }
 }
 
 QuestionCard.propTypes = {
