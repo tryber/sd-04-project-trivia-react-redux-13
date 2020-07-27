@@ -66,7 +66,7 @@ Multiple.propTypes = {
 const Boolean = ({ answer, genColor, callBack }) =>
   <div className="boolean">
     <Button
-      testid="correct-answer"
+      testId="correct-answer"
       id="correct"
       onClick={(event) => { genColor(event); callBack(true); }}
     >
@@ -137,8 +137,10 @@ class AnswerCard extends Component {
     this.props.showNextButton2(true, isCorrect);
   }
 
-  disabling(but) {
-    but.disabled = true
+  static disabling(but) {
+    let butObj = but;
+    butObj.disabled = true;
+    return butObj;
   }
 
   timeout() {

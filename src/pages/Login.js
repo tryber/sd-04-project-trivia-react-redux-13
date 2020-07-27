@@ -19,10 +19,6 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {
-    localStorage.clear();
-  }
-
   // Função que armazena o estado de logado e o token obtido via API no local storage.
   // Também armazena o token na store.
 
