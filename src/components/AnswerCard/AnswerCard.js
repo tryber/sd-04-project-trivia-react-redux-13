@@ -128,9 +128,13 @@ class AnswerCard extends Component {
     this.props.showNextButton2(true, isCorrect);
   }
 
+  disabling(but) {
+    but.disabled = true
+  }
+
   timeout() {
     const eltMulti = [...getElt('.multiple').children];
-    eltMulti.filter((child) => child.tagName === 'BUTTON').forEach((but) => but.disabled = true);
+    eltMulti.filter((child) => child.tagName === 'BUTTON').forEach((but) => this.disabling(but));
     return true;
   }
 
