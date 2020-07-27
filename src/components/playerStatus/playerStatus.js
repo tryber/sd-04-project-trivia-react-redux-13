@@ -9,7 +9,9 @@ class PlayerStatus extends React.Component {
     if (showSettings === 'true') {
       return (
         <div className="points_container">
-          <h3 data-testid="header-score" className="points">Pontos: {score}</h3>
+          <h3 className="points">
+            Pontos: <span data-testid="header-score">{score}</span>
+          </h3>
           <Link className="link" to="/settings">
             <i className="fa fa-cog fa-2x" />
           </Link>
