@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import './AnswerCard.css';
 import { getElt, setSS } from '../../helpers';
@@ -13,6 +14,13 @@ const Button = ({ testId, id, onClick, children }) => (
     {children}
   </button>
 );
+
+Button.propTypes = {
+  children: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  testId: PropTypes.string.isRequired
+}
 
 
 // Componente de alternativas multiplas
@@ -42,6 +50,15 @@ const Multiple = ({ answer, genColor, callBack }) =>
       {answer.incorrect_answers[2]}
     </button>
   </div>;
+
+Multiple.propTypes = {
+  answer: PropTypes.shape({
+    correct_answer: PropTypes.string.isRequired,
+    incorrect_answers: PropTypes.string.isRequired,
+  }),
+  callBack: PropTypes.func.isRequired,
+  genColor: PropTypes.func.isRequired,
+}
 
 
 // Componente de alternativas booleanas
