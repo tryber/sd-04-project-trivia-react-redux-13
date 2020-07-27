@@ -5,7 +5,7 @@ import RankingList from '../components/RankingList';
 const Ranking = () =>
   (
     <div>
-      <h1>Ranking</h1>
+      <h1 data-testid="ranking-title">Ranking</h1>
       <RankingList />
       <Link to="/" data-testid="btn-go-home">Voltar ao Início</Link>
     </div>
