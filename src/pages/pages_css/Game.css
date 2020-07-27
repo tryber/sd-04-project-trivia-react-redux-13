@@ -2,7 +2,7 @@ button {
   background-color: rgba(0, 58, 248, 0.808);
   border: double 3px ;
   border-radius: 9px;
-  box-shadow: 0 2px 3px 0 rgba(44, 92, 250, 0.527), 0 3px 2px 0 rgb(44, 92, 250, 0.527);
+  box-shadow: 0 2px 3px 0 rgba(44, 92, 250, 0.527);
   transition-duration: 0.3s;
 }
 
