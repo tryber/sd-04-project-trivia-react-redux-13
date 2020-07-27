@@ -17,7 +17,7 @@ const insertRanking = () => {
 
   setLS('ranking', newRanking);
   return newRanking;
-}
+};
 
 class RankingList extends React.Component {
 

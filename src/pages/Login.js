@@ -27,7 +27,7 @@ class Login extends Component {
     const { tokenData, playerAdd } = this.props;
     setLS('state', {
       player: {
-        name: name,
+        name,
         assertions: 0,
         score: 0,
         gravatarEmail: email,
