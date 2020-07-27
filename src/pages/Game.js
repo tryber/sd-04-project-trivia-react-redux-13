@@ -103,15 +103,14 @@ class Game extends Component {
       );
     }
     return (
-      <div></div>
+      <div />
     );
   }
 
   render() {
     const { ctrQuest, sum } = this.state;
     const { loading, questions } = this.props;
-    return (loading || (questions[0] === undefined) ? <h1>Game loading...</h1> :
-      <div>
+    return (loading || (questions[0] === undefined) ? <h1>Game loading...</h1> : <div>
         <h1>Game</h1>
         <PlayerStatus player={getLS('state').player} score={sum} showSettings={'false'} />
         <QuestionCard
@@ -123,16 +122,15 @@ class Game extends Component {
           ctrQuest={ctrQuest}
         />
         {this.renderPoints()}
-      </div>
-    );
+      </div>);
   }
 }
 
 Game.propTypes = {
-  addData: PropTypes.func,
-  addToken: PropTypes.func,
+  addData: PropTypes.func.isRequired,
+  addToken: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  questions: PropTypes.array.isRequired
+  questions: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

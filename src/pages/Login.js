@@ -55,8 +55,7 @@ class Login extends Component {
 
   render() {
     const { email, name, loggedin } = this.state;
-    return (loggedin ? <Redirect push to="/game" /> :
-      <div>
+    return (loggedin ? <Redirect push to="/game" /> : <div>
         <Link to="/settings"><button data-testid="btn-settings">Configurações</button></Link><br />
         <img src={logo} className="App-logo" alt="logo" /><br />
         <label htmlFor="input-email">Email do Gravatar: </label>
@@ -87,5 +86,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
+  playerAdd: PropTypes.func.isRequired,
   tokenData: PropTypes.func.isRequired,
 };

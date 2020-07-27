@@ -43,7 +43,7 @@ class PlayerStatus extends React.Component {
 
 PlayerStatus.propTypes = {
   player: PropTypes.object.isRequired,
-  palyer: PropTypes.shape({
+  player: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
   score: PropTypes.number.isRequired,
