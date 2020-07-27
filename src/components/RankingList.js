@@ -27,10 +27,12 @@ RankingList.propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  avatar: state.ranking.avatar,
-  name: state.ranking.name,
-  score: state.ranking.score,
-});
+// const mapStateToProps = (state) => ({
+//   avatar: state.ranking.avatar,
+//   name: state.ranking.name,
+//   score: state.ranking.score,
+// });
 
-export default connect(mapStateToProps)(RankingList);
+// export default connect(mapStateToProps)(RankingList);
+
+export default RankingList;

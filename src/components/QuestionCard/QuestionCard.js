@@ -13,7 +13,7 @@ class QuestionCard extends Component {
 		//  const questionText =  JSON.parse(decodeURI(quesText));
 		//  console.log('second', questionText);
     //  console.log(user);
-    
+
 		return (
 			<div className="quest_container">
 				<div data-testid="question-category">{category}</div>

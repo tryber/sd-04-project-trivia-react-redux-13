@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { asyncActionTokenData } from '../actions';
+import { asyncActionTokenData, actionPlayerAdd } from '../actions';
 import logo from '../trivia.png';
 import { getElt, getLS, setLS } from '../helpers';
 
@@ -19,39 +19,24 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {
-    const player = {
-        name: '',
-        assertions: 0,
-        score: 0,
-        gravatarEmail: '',
-    }
-    const ranking = [{
-      name: '',
-      score: 10,
-      picture: '',
-    }];
-    localStorage.clear();
-    setLS('player', player);
-    setLS('ranking', ranking);
-  }
-
-
   // Função que armazena o estado de logado e o token obtido via API no local storage.
   // Também armazena o token na store.
 
   storeDataUser() {
     const { email, name } = this.state;
-    const { tokenData } = this.props;
-    const player = getLS('player');
-    setLS('player',
-      { ...player, name: name, gravatarEmail: email },
+    const { tokenData, playerAdd } = this.props;
+    setLS('state',
+      { player: { name: name, assertions: 0, score: 0, gravatarEmail: email } }
     );
+    const oPlayer = {
+      email,
+      name,
+    }
+    playerAdd(oPlayer);
     setLS('loggedin', true);
     this.setState({ loggedin: getLS('loggedin') });
     return tokenData('https://opentdb.com/api_token.php?command=request');
   }
-
 
   // Função que verifica se os inputs estão preenchidos.
 
@@ -96,6 +81,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   tokenData: (url) => dispatch(asyncActionTokenData(url)),
+  playerAdd: (oPlayer) => dispatch(actionPlayerAdd(oPlayer)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -75,7 +75,7 @@ class AnswerCard extends Component {
       }
       if (this.state.timer === 0) {
         clearInterval(setInt)
-        this.timeout();
+        this.timeout(); // Desabilita os botões após 30 seg
         return true;
       }
       return this.setState((prevState) => ({
@@ -89,10 +89,9 @@ class AnswerCard extends Component {
     this.setState({ answered: true });
     setSS('timer', this.state.timer);
     return parent.filter((child) => child.tagName === 'BUTTON').forEach((but) => (
-      but.id === 'correct' ?
-        but.classList.add('correct-answer')
-        :
-        but.classList.add('wrong-answer')
+      but.id === 'correct'
+        ? but.classList.add('correct-answer')
+        : but.classList.add('wrong-answer')
     ));
   }
 
@@ -101,7 +100,7 @@ class AnswerCard extends Component {
   }
 
   timeout() {
-    const eltMulti = [...getElt('.multiple').children];
+    const eltMulti = [ ...getElt('.multiple').children ];
     eltMulti.filter((child) => child.tagName === 'BUTTON').forEach((but) => but.disabled = true);
     return true;
   }
@@ -109,16 +108,15 @@ class AnswerCard extends Component {
   render() {
     const { timer } = this.state;
     const { answer } = this.props;
-    return (answer.type === 'multiple' ?
-      <div>
-        <Multiple answer={answer} genColor={this.genColor} callBack={this.callBack} />
-        <p>{timer}</p>
-      </div>
-      :
-      <div>
-        <Boolean answer={answer} genColor={this.genColor} callBack={this.callBack} />
-        <p>{timer}</p>
-      </div>
+    return (answer.type === 'multiple'
+      ? <div>
+          <Multiple answer={answer} genColor={this.genColor} callBack={this.callBack} />
+          <p>{timer}</p>
+        </div>
+      : <div>
+          <Boolean answer={answer} genColor={this.genColor} callBack={this.callBack} />
+          <p>{timer}</p>
+        </div>
     );
   }
 }

@@ -1,14 +1,13 @@
 import { setLS } from '../helpers';
 
-// actions para armazenamento de dados de usuários
+// actions para armazenamento de email e name do player
 
-// export const USER_ADD = 'USER_ADD';
+export const PLAYER_ADD = 'PLAYER_ADD';
 
-// export const actionUserAdd = (user) => ({
-//   type: USER_ADD,
-//   user,
-// });
-
+export const actionPlayerAdd = (player) => ({
+  type: PLAYER_ADD,
+  player,
+});
 
 // actions para armazenamento de token recebido via API
 
@@ -35,7 +34,6 @@ export const actionTokenError = (error) => ({
   type: TOKEN_ERROR,
   error,
 });
-
 
 // actions para armazenamento de dados de perguntas recebidas via API
 

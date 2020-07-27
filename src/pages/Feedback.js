@@ -17,8 +17,9 @@ class Feedback extends Component {
   }
 
   componentDidMount() {
-    const player = getLS('player');
+    const player = getLS('state').player;
     this.setState({ pt: player.score, rightQuest: player.assertions });
+
     this.comparaAcertos();
   }
 
@@ -42,11 +43,12 @@ class Feedback extends Component {
     }
     return (
       <div>
-        <PlayerStatus
-          player={getLS('player')}
+        <PlayerStatus 
+          player={getLS('state').player}
           score={pt}
           showSettings={'true'} 
         />
+
         <div data-testid="feedback-text" className="feedback-text">
           {this.state.feedbackMsg}
         </div>
@@ -61,7 +63,7 @@ class Feedback extends Component {
           VER RANKING
         </button>
         <br />
-        <button data-testid="btn-play-again" onClick={() => this.handleClick('/game')}>
+        <button data-testid="btn-play-again" onClick={() => this.handleClick('/')}> 
           JOGAR NOVAMENTE
         </button>
       </div>
