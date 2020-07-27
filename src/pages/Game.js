@@ -111,18 +111,18 @@ class Game extends Component {
     const { ctrQuest, sum } = this.state;
     const { loading, questions } = this.props;
     return (loading || (questions[0] === undefined) ? <h1>Game loading...</h1> : <div>
-        <h1>Game</h1>
-        <PlayerStatus player={getLS('state').player} score={sum} showSettings={'false'} />
-        <QuestionCard
-          category={questions[ctrQuest].category}
-          quesText={questions[ctrQuest].question}
-        />
-        <AnswerCard
-          answer={questions[ctrQuest]} showNextButton2={this.showNextButton2}
-          ctrQuest={ctrQuest}
-        />
-        {this.renderPoints()}
-      </div>);
+      <h1>Game</h1>
+      <PlayerStatus player={getLS('state').player} score={sum} showSettings={'false'} />
+      <QuestionCard
+        category={questions[ctrQuest].category}
+        quesText={questions[ctrQuest].question}
+      />
+      <AnswerCard
+        answer={questions[ctrQuest]} showNextButton2={this.showNextButton2}
+        ctrQuest={ctrQuest}
+      />
+      {this.renderPoints()}
+    </div>);
   }
 }
 

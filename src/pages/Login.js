@@ -56,25 +56,24 @@ class Login extends Component {
   render() {
     const { email, name, loggedin } = this.state;
     return (loggedin ? <Redirect push to="/game" /> : <div>
-        <Link to="/settings"><button data-testid="btn-settings">Configurações</button></Link><br />
-        <img src={logo} className="App-logo" alt="logo" /><br />
-        <label htmlFor="input-email">Email do Gravatar: </label>
-        <input
-          type="text" id="input-email" data-testid="input-gravatar-email" value={email}
-          onChange={(e) => this.checkInputFill(e)}
-        /><br />
-        <label htmlFor="input-name">Nome do Jogador: </label>
-        <input
-          type="text" id="input-name" data-testid="input-player-name" value={name}
-          onChange={(e) => this.checkInputFill(e)}
-        /><br />
-        <button
-          id="btn-play" data-testid="btn-play" disabled
-        >
-          JOGAR!
-        </button>
-      </div>
-    );
+      <Link to="/settings"><button data-testid="btn-settings">Configurações</button></Link><br />
+      <img src={logo} className="App-logo" alt="logo" /><br />
+      <label htmlFor="input-email">Email do Gravatar: </label>
+      <input
+        type="text" id="input-email" data-testid="input-gravatar-email" value={email}
+        onChange={(e) => this.checkInputFill(e)}
+      /><br />
+      <label htmlFor="input-name">Nome do Jogador: </label>
+      <input
+        type="text" id="input-name" data-testid="input-player-name" value={name}
+        onChange={(e) => this.checkInputFill(e)}
+      /><br />
+      <button
+        id="btn-play" data-testid="btn-play" disabled
+      >
+        JOGAR!
+      </button>
+    </div>);
   }
 }
 
