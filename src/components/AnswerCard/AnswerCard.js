@@ -7,7 +7,7 @@ import { getElt, setSS } from '../../helpers';
 
 const Button = ({ testId, id, onClick, children }) => (
   <button
-    data-testId={testId}
+    data-testid={testId}
     id={id}
     onClick={onClick}
   >
@@ -73,7 +73,7 @@ const Boolean = ({ answer, genColor, callBack }) =>
       {answer.correct_answer}
     </Button><br />
     <button
-      data-testid={`wrong-answer-${0}`} onClick={(event) => { genColor(event); callBack(false) }}
+      data-testid={`wrong-answer-${0}`} onClick={(event) => { genColor(event); callBack(false); }}
     >
       {answer.incorrect_answers[0]}
     </button>
@@ -82,8 +82,8 @@ const Boolean = ({ answer, genColor, callBack }) =>
 Boolean.propTypes = {
   answer: PropTypes.shape({
     correct_answer: PropTypes.string.isRequired,
-    incorrect_answers: PropTypes.string.isRequired,
-  }),
+    incorrect_answers: PropTypes.array.isRequired,
+  }).isRequired,
   callBack: PropTypes.func.isRequired,
   genColor: PropTypes.func.isRequired,
 };
@@ -97,7 +97,7 @@ class AnswerCard extends Component {
     this.state = {
       answered: false,
       timer: 30,
-    }
+    };
     this.genColor = this.genColor.bind(this);
     this.timeout = this.timeout.bind(this);
     this.callBack = this.callBack.bind(this);
