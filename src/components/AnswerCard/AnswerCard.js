@@ -2,18 +2,30 @@ import React, { Component } from 'react';
 import './AnswerCard.css';
 import { getElt, setSS } from '../../helpers';
 
+// Componente Button
+
+const Button = ({ testId, id, onClick, children }) => (
+  <button
+    data-testId={testId}
+    id={id}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
+
 
 // Componente de alternativas multiplas
 
 const Multiple = ({ answer, genColor, callBack }) =>
   <div className="multiple">
-    <button
-      data-testid="correct-answer"
+    <Button
+      testId="correct-answer"
       id="correct"
       onClick={(event) => { genColor(event); callBack(true) }}
     >
       {answer.correct_answer}
-    </button><br />
+    </Button><br />
     <button
       data-testid={`wrong-answer-${0}`} onClick={(event) => { genColor(event); callBack(false) }}
     >
@@ -36,13 +48,13 @@ const Multiple = ({ answer, genColor, callBack }) =>
 
 const Boolean = ({ answer, genColor, callBack }) =>
   <div className="boolean">
-    <button
-      data-testid="correct-answer"
+    <Button
+      testid="correct-answer"
       id="correct"
       onClick={(event) => { genColor(event); callBack(true) }}
     >
       {answer.correct_answer}
-    </button><br />
+    </Button><br />
     <button
       data-testid={`wrong-answer-${0}`} onClick={(event) => { genColor(event); callBack(false) }}
     >
