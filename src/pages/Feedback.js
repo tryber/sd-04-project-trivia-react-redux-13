@@ -10,7 +10,7 @@ class Feedback extends Component {
     this.state = {
       feedbackMsg: '',
       pt: 0,
-      rightQuest: 1,
+      rightQuest: 0,
       rendRedirect: false,
       nextScreen: '',
     };
@@ -24,7 +24,8 @@ class Feedback extends Component {
   }
 
   comparaAcertos() {
-    const { rightQuest } = this.state;
+    // const { rightQuest } = this.state;
+    const rightQuest = getLS('state').player.assertions;
     if (rightQuest < 3) {
       this.setState({ feedbackMsg: 'Podia ser melhor...' });
     } else if (rightQuest >= 3) {
