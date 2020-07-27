@@ -31,7 +31,7 @@ class Login extends Component {
     const oPlayer = {
       email,
       name,
-    }
+    };
     playerAdd(oPlayer);
     setLS('loggedin', true);
     this.setState({ loggedin: getLS('loggedin') });

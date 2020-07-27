@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import './pages_css/Feedback.css';
 import PlayerStatus from '../components/playerStatus/playerStatus';
 import { getLS } from '../helpers';
 
@@ -14,12 +13,17 @@ class Feedback extends Component {
       rendRedirect: false,
       nextScreen: '',
     };
+    this.setingState = this.setingState.bind(this);
   }
 
   componentDidMount() {
+    this.setingState();
+    this.comparaAcertos();
+  }
+
+  setingState() {
     const player = getLS('state').player;
     this.setState({ pt: player.score, rightQuest: player.assertions });
-    this.comparaAcertos();
   }
 
   comparaAcertos() {
@@ -42,12 +46,11 @@ class Feedback extends Component {
     }
     return (
       <div>
-        <PlayerStatus 
+        <PlayerStatus
           player={getLS('state').player}
           score={pt}
           showSettings={'true'}
         />
-
         <div data-testid="feedback-text" className="feedback-text">
           {this.state.feedbackMsg}
         </div>
@@ -61,9 +64,8 @@ class Feedback extends Component {
         </div>
         <button data-testid="btn-ranking" onClick={() => this.handleClick('/ranking')}>
           VER RANKING
-        </button>
-        <br />
-        <button data-testid="btn-play-again" onClick={() => this.handleClick('/')}> 
+        </button><br />
+        <button data-testid="btn-play-again" onClick={() => this.handleClick('/')}>
           JOGAR NOVAMENTE
         </button>
       </div>

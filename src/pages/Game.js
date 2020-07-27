@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { actionTokenAdd, actionDataAdd } from '../actions';
 import { getLS, setLS, getSS } from '../helpers';
-import './pages_css/Game.css'
+import './pages_css/Game.css';
 import QuestionCard from '../components/QuestionCard/QuestionCard';
 import PlayerStatus from '../components/playerStatus/playerStatus';
 import AnswerCard from '../components/AnswerCard/AnswerCard';
@@ -31,7 +32,7 @@ class Game extends Component {
       addData(getLS('data'));
     }
     setLS('state',
-      { ...state, player: { ...state.player, score: 0 } }
+      { ...state, player: { ...state.player, score: 0 } },
     );
   }
 
@@ -44,7 +45,7 @@ class Game extends Component {
     if (difficulty === 'easy') diffQuestion = 1;
     if (difficulty === 'medium') diffQuestion = 2;
     if (difficulty === 'hard') diffQuestion = 3;
-    let time = getSS('timer');
+    const time = getSS('timer');
     let auxSum = 0;
     if (isCorrect) {
       auxSum = 10 + (time * diffQuestion);
@@ -55,7 +56,7 @@ class Game extends Component {
             ...state.player,
             assertions: state.player.assertions + 1,
             score: state.player.score + auxSum,
-          }
+          },
         },
       );
       this.setState((prevState) => ({ sum: prevState.sum + auxSum }));
@@ -101,6 +102,9 @@ class Game extends Component {
         </div>
       );
     }
+    return (
+      <div></div>
+    );
   }
 
   render() {
@@ -120,9 +124,16 @@ class Game extends Component {
         />
         {this.renderPoints()}
       </div>
-    )
+    );
   }
 }
+
+Game.propTypes = {
+  addData: PropTypes.func,
+  addToken: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
+  questions: PropTypes.array.isRequired
+};
 
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
