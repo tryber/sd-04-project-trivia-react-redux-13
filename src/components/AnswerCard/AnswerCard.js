@@ -100,7 +100,7 @@ class AnswerCard extends Component {
   }
 
   timeout() {
-    const eltMulti = [ ...getElt('.multiple').children ];
+    const eltMulti = [...getElt('.multiple').children];
     eltMulti.filter((child) => child.tagName === 'BUTTON').forEach((but) => but.disabled = true);
     return true;
   }
@@ -110,13 +110,13 @@ class AnswerCard extends Component {
     const { answer } = this.props;
     return (answer.type === 'multiple'
       ? <div>
-          <Multiple answer={answer} genColor={this.genColor} callBack={this.callBack} />
-          <p>{timer}</p>
-        </div>
+        <Multiple answer={answer} genColor={this.genColor} callBack={this.callBack} />
+        <p>{timer}</p>
+      </div>
       : <div>
-          <Boolean answer={answer} genColor={this.genColor} callBack={this.callBack} />
-          <p>{timer}</p>
-        </div>
+        <Boolean answer={answer} genColor={this.genColor} callBack={this.callBack} />
+        <p>{timer}</p>
+      </div>
     );
   }
 }

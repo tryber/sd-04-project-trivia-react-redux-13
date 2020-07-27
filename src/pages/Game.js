@@ -130,7 +130,7 @@ Game.propTypes = {
   addData: PropTypes.func.isRequired,
   addToken: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  questions: PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  questions: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
