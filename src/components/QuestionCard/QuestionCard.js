@@ -6,14 +6,6 @@ class QuestionCard extends Component {
 	render() {
 		const { category, quesText } = this.props;
 
-    //  ----------------------------------
-    //  Tentativa de conversão do texto
-    //  ----------------------------------
-		//  console.log('first', question);
-		//  const questionText =  JSON.parse(decodeURI(quesText));
-		//  console.log('second', questionText);
-    //  console.log(user);
-
 		return (
 			<div className="quest_container">
 				<div data-testid="question-category">{category}</div>
@@ -24,8 +16,8 @@ class QuestionCard extends Component {
 }
 
 QuestionCard.propTypes = {
-	category: PropTypes.string.isRequired,
-	quesText: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  quesText: PropTypes.string.isRequired,
 };
 
 export default QuestionCard;

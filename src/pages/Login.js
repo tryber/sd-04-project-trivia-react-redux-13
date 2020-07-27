@@ -25,14 +25,14 @@ class Login extends Component {
   storeDataUser() {
     const { email, name } = this.state;
     const { tokenData, playerAdd } = this.props;
-    setLS('state',
-      { player: {
+    setLS('state', {
+      player: {
         name: name,
         assertions: 0,
         score: 0,
-        gravatarEmail: email } 
+        gravatarEmail: email,
       },
-    );
+    },);
     const oPlayer = {
       email,
       name,
