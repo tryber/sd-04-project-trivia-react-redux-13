@@ -22,6 +22,22 @@ Button.propTypes = {
   testId: PropTypes.string.isRequired,
 };
 
+const Btn = ({ testId, id, onClick, children }) => (
+  <button
+    data-testid={testId}
+    id={id}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
+
+Btn.propTypes = {
+  children: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  testId: PropTypes.string.isRequired,
+};
 
 // Componente de alternativas multiplas
 
@@ -65,13 +81,13 @@ Multiple.propTypes = {
 
 const Boolean = ({ answer, genColor, callBack }) =>
   <div className="boolean">
-    <Button
+    <Btn
       testId="correct-answer"
       id="correct"
       onClick={(event) => { genColor(event); callBack(true); }}
     >
       {answer.correct_answer}
-    </Button><br />
+    </Btn><br />
     <button
       data-testid={`wrong-answer-${0}`} onClick={(event) => { genColor(event); callBack(false); }}
     >
@@ -92,6 +108,13 @@ Boolean.propTypes = {
 // Componente principal
 
 class AnswerCard extends Component {
+
+  static disabling(but) {
+    const butObj = but;
+    butObj.disabled = true;
+    return butObj;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -135,12 +158,6 @@ class AnswerCard extends Component {
 
   callBack(isCorrect) {
     this.props.showNextButton2(true, isCorrect);
-  }
-
-  static disabling(but) {
-    let butObj = but;
-    butObj.disabled = true;
-    return butObj;
   }
 
   timeout() {
