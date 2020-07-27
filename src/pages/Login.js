@@ -32,7 +32,7 @@ class Login extends Component {
         score: 0,
         gravatarEmail: email,
       },
-    },);
+    });
     const oPlayer = {
       email,
       name,
