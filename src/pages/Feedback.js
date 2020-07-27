@@ -19,12 +19,10 @@ class Feedback extends Component {
   componentDidMount() {
     const player = getLS('state').player;
     this.setState({ pt: player.score, rightQuest: player.assertions });
-
     this.comparaAcertos();
   }
 
   comparaAcertos() {
-    // const { rightQuest } = this.state;
     const rightQuest = getLS('state').player.assertions;
     if (rightQuest < 3) {
       this.setState({ feedbackMsg: 'Podia ser melhor...' });
@@ -47,18 +45,19 @@ class Feedback extends Component {
         <PlayerStatus 
           player={getLS('state').player}
           score={pt}
-          showSettings={'true'} 
+          showSettings={'true'}
         />
 
         <div data-testid="feedback-text" className="feedback-text">
           {this.state.feedbackMsg}
         </div>
-        <div data-testid="feedback-total-score" className="feedback-score">
-          <span data-testid="feedback-total-question">
-            {`Você acertou ${rightQuest} questões!`}
-          </span>
-          <br />
-          {`Um total de ${pt} pontos`}
+        <div className="feedback-score">
+          <div >
+            Você acertou <span data-testid="feedback-total-question">{rightQuest}</span> questões!
+          </div>
+          <div>
+            Um total de <span data-testid="feedback-total-score">{pt}</span> pontos
+          </div>
         </div>
         <button data-testid="btn-ranking" onClick={() => this.handleClick('/ranking')}>
           VER RANKING
