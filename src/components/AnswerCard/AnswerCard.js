@@ -165,9 +165,9 @@ class AnswerCard extends Component {
 
 AnswerCard.propTypes = {
   answer: PropTypes.shape({
-    type: PropTypes.string.isRequired
-  }),
+    type: PropTypes.string.isRequired,
+  }).isRequired,
   showNextButton2: PropTypes.func.isRequired,
-}
+};
 
 export default AnswerCard;
