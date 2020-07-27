@@ -82,7 +82,7 @@ const Boolean = ({ answer, genColor, callBack }) =>
 Boolean.propTypes = {
   answer: PropTypes.shape({
     correct_answer: PropTypes.string.isRequired,
-    incorrect_answers: PropTypes.array.isRequired,
+    incorrect_answers: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   callBack: PropTypes.func.isRequired,
   genColor: PropTypes.func.isRequired,
