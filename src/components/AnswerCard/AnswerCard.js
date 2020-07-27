@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import './AnswerCard.css';
 import { getElt, setSS } from '../../helpers';
@@ -19,8 +19,8 @@ Button.propTypes = {
   children: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  testId: PropTypes.string.isRequired
-}
+  testId: PropTypes.string.isRequired,
+};
 
 
 // Componente de alternativas multiplas
@@ -30,22 +30,22 @@ const Multiple = ({ answer, genColor, callBack }) =>
     <Button
       testId="correct-answer"
       id="correct"
-      onClick={(event) => { genColor(event); callBack(true) }}
+      onClick={(event) => { genColor(event); callBack(true); }}
     >
       {answer.correct_answer}
     </Button><br />
     <button
-      data-testid={`wrong-answer-${0}`} onClick={(event) => { genColor(event); callBack(false) }}
+      data-testid={`wrong-answer-${0}`} onClick={(event) => { genColor(event); callBack(false); }}
     >
       {answer.incorrect_answers[0]}
     </button><br />
     <button
-      data-testid={`wrong-answer-${1}`} onClick={(event) => { genColor(event); callBack(false) }}
+      data-testid={`wrong-answer-${1}`} onClick={(event) => { genColor(event); callBack(false); }}
     >
       {answer.incorrect_answers[1]}
     </button><br />
     <button
-      data-testid={`wrong-answer-${2}`} onClick={(event) => { genColor(event); callBack(false) }}
+      data-testid={`wrong-answer-${2}`} onClick={(event) => { genColor(event); callBack(false); }}
     >
       {answer.incorrect_answers[2]}
     </button>
@@ -55,10 +55,10 @@ Multiple.propTypes = {
   answer: PropTypes.shape({
     correct_answer: PropTypes.string.isRequired,
     incorrect_answers: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   callBack: PropTypes.func.isRequired,
   genColor: PropTypes.func.isRequired,
-}
+};
 
 
 // Componente de alternativas booleanas
@@ -68,7 +68,7 @@ const Boolean = ({ answer, genColor, callBack }) =>
     <Button
       testid="correct-answer"
       id="correct"
-      onClick={(event) => { genColor(event); callBack(true) }}
+      onClick={(event) => { genColor(event); callBack(true); }}
     >
       {answer.correct_answer}
     </Button><br />
@@ -78,6 +78,15 @@ const Boolean = ({ answer, genColor, callBack }) =>
       {answer.incorrect_answers[0]}
     </button>
   </div>;
+
+Boolean.propTypes = {
+  answer: PropTypes.shape({
+    correct_answer: PropTypes.string.isRequired,
+    incorrect_answers: PropTypes.string.isRequired,
+  }),
+  callBack: PropTypes.func.isRequired,
+  genColor: PropTypes.func.isRequired,
+};
 
 
 // Componente principal
@@ -103,13 +112,13 @@ class AnswerCard extends Component {
         return true;
       }
       if (this.state.timer === 0) {
-        clearInterval(setInt)
+        clearInterval(setInt);
         this.timeout(); // Desabilita os botões após 30 seg
         return true;
       }
       return this.setState((prevState) => ({
         timer: prevState.timer - 1,
-      }))
+      }));
     }, 1000);
   }
 
@@ -152,6 +161,13 @@ class AnswerCard extends Component {
       </div>
     );
   }
+}
+
+AnswerCard.propTypes = {
+  answer: PropTypes.shape({
+    type: PropTypes.string.isRequired
+  }),
+  showNextButton2: PropTypes.func.isRequired,
 }
 
 export default AnswerCard;
