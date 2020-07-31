@@ -8,6 +8,8 @@ import Ranking from './pages/Ranking';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
+//  Para o commit do Cacique
+
 function App() {
   return (
     <div className="App">
